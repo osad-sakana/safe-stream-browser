@@ -1,5 +1,6 @@
 mod browser;
 mod event;
+mod menu;
 mod url_input;
 mod url_popup;
 
@@ -16,6 +17,10 @@ fn main() -> wry::Result<()> {
     let main_window = browser::create_main_window(&event_loop);
     let main_window_id = main_window.id();
     let main_webview = browser::create_main_webview(&main_window, proxy.clone())?;
+
+    // イベントループが終了するまで保持し続ける必要がある
+    // （menu::setup_menuのドキュメント参照）。
+    let _menu = menu::setup_menu(proxy.clone());
 
     let mut popup: Option<(tao::window::Window, WebView)> = None;
 
