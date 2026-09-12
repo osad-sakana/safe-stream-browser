@@ -22,7 +22,7 @@ const POPUP_HTML: &str = r#"<!doctype html>
 </head>
 <body>
   <p>移動先のURLを入力してください</p>
-  <input id="url" type="text" autofocus placeholder="https://example.com" />
+  <input id="url" type="text" placeholder="https://example.com" />
   <button id="go">開く</button>
   <button id="cancel" style="background:#555">キャンセル</button>
   <div id="error"></div>
@@ -36,6 +36,7 @@ const POPUP_HTML: &str = r#"<!doctype html>
     }
     document.getElementById('go').addEventListener('click', submit);
     document.getElementById('cancel').addEventListener('click', cancel);
+    document.getElementById('url').focus();
     document.getElementById('url').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') submit();
       if (e.key === 'Escape') cancel();
