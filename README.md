@@ -1,0 +1,2 @@
+SafeStream Browser
+配信者のためのブラウザ
