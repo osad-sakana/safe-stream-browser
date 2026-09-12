@@ -92,6 +92,9 @@ pub fn create_main_window(
 ) -> Window {
     WindowBuilder::new()
         .with_title("SafeStream Browser")
+        // ネイティブのフルスクリーン（Spaces切り替えを伴う）ではなく、通常の
+        // ウィンドウのまま画面いっぱいに広げる「最大化」で起動する。
+        .with_maximized(true)
         .build(event_loop)
         .expect("メインウィンドウの作成に失敗しました")
 }
