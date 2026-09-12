@@ -21,6 +21,22 @@ pub fn setup_menu(proxy: EventLoopProxy<UserEvent>) -> Menu {
     let _ = app_menu.append(&PredefinedMenuItem::quit(Some("SafeStream Browserを終了")));
     let _ = menu.append(&app_menu);
 
+    // macOSではCmd+C/V等のクリップボード操作は常に有効だが、対応する
+    // メニュー項目（キーイベントの解決先）が存在しないとショートカットが
+    // 機能しない（URL入力ポップアップへのペーストができなくなる）ため、
+    // 標準的な「編集」メニューを用意する。
+    let edit_menu = Submenu::new("編集", true);
+    let _ = edit_menu.append_items(&[
+        &PredefinedMenuItem::undo(None),
+        &PredefinedMenuItem::redo(None),
+        &PredefinedMenuItem::separator(),
+        &PredefinedMenuItem::cut(None),
+        &PredefinedMenuItem::copy(None),
+        &PredefinedMenuItem::paste(None),
+        &PredefinedMenuItem::select_all(None),
+    ]);
+    let _ = menu.append(&edit_menu);
+
     let navigate_menu = Submenu::new("移動", true);
     let open_url_item = MenuItem::new(
         "URLを開く...",
